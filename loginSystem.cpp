@@ -127,6 +127,10 @@ void login()
         }
 }
 
+/*TODO: add the user database so that the accounts are actually created
+and able to login after.
+*/
+
     int main()
     {
         char userR;
