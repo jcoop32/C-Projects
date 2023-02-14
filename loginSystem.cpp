@@ -58,23 +58,17 @@ public:
 void reg()
 {
     UserInfo reg;
-    cout << "Enter First Name: ";
-    cin >> reg.firstName;
+    cout << "Enter First Name: "; cin >> reg.firstName;
 
-    cout << "Enter Last Name: ";
-    cin >> reg.lastName;
+    cout << "Enter Last Name: "; cin >> reg.lastName;
 
-    cout << "Enter username: ";
-    cin >> reg.username;
+    cout << "Enter username: "; cin >> reg.username;
 
-    cout << "Enter email: ";
-    cin >> reg.email;
+    cout << "Enter email: "; cin >> reg.email;
 
-    cout << "Enter Password: ";
-    cin >> reg.initPassword;
+    cout << "Enter Password: "; cin >> reg.initPassword;
 
-    cout << "Verify Password: ";
-    cin >> reg.verifyPassword;
+    cout << "Verify Password: "; cin >> reg.verifyPassword;
 
     if (reg.initPassword == reg.verifyPassword)
     {
@@ -96,15 +90,12 @@ void login()
 
     UserInfo log;
     time_t now = time(0);
-    char *dt = ctime(&now);
-    cout << "Username: ";
-    cin >> log.username;
+    char *dt = ctime(&now); //date and time
+    cout << "Username: "; cin >> log.username;
 
-    cout << "Enter password: ";
-    cin >> log.initPassword;
+    cout << "Enter password: "; cin >> log.initPassword;
 
-    cout << "Verify password: ";
-    cin >> log.verifyPassword;
+    cout << "Verify password: "; cin >> log.verifyPassword;
 
     if (log.initPassword == log.verifyPassword)
     {
@@ -134,8 +125,7 @@ and able to login after.
     int main()
     {
         char userR;
-        cout << "Login ('L') or Register ('R'): ";
-        cin >> userR;
+        cout << "Login ('L') or Register ('R'): "; cin >> userR;
         if (userR == 'R')
         {
             reg();
