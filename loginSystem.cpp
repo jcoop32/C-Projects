@@ -76,7 +76,7 @@ void reg()
 
     if (reg.password == reg.vPassword)
     {
-        file.open("/Users/joshcooper/Desktop/vs code projects/c++ projects/users/" + reg.username + ".txt");
+        file.open("users/" + reg.username + ".txt");
         file << reg.username << endl<< reg.password << endl << reg.fName + " " + reg.lName;
         file.close();
         cout << endl;
@@ -104,7 +104,7 @@ void login()
     cin >> log.password;
    
     
-    ifstream read("/Users/joshcooper/Desktop/vs code projects/c++ projects/users/" + log.username + ".txt");
+    ifstream read("users/" + log.username + ".txt");
     getline(read, un);
     getline(read, pwd);
     getline(read, name);
