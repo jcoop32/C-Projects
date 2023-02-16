@@ -1,4 +1,6 @@
 #include <iostream>
+#include <fstream>
+#include <string>
 #include <ctime>
 
 using namespace std;
@@ -47,36 +49,38 @@ void pokemon()
 class UserInfo
 {
 public:
-    string firstName;
-    string lastName;
-    string username;
-    string email;
-    string initPassword;
-    string verifyPassword;
+    string fName, lName, username, password, vPassword;
 };
 
 void reg()
 {
+
     UserInfo reg;
-    cout << "Enter First Name: "; cin >> reg.firstName;
+    cout << "Enter First Name: ";
+    cin >> reg.fName;
 
-    cout << "Enter Last Name: "; cin >> reg.lastName;
+    cout << "Enter Last Name: ";
+    cin >> reg.lName;
 
-    cout << "Enter username: "; cin >> reg.username;
+    cout << "Enter username: ";
+    cin >> reg.username;
 
-    cout << "Enter email: "; cin >> reg.email;
+    cout << "Enter Password: ";
+    cin >> reg.password;
 
-    cout << "Enter Password: "; cin >> reg.initPassword;
+    cout << "Verify Password: ";
+    cin >> reg.vPassword;
 
-    cout << "Verify Password: "; cin >> reg.verifyPassword;
-
-    if (reg.initPassword == reg.verifyPassword)
+    if (reg.password == reg.vPassword)
     {
+        ofstream file;
+        file.open("/Users/joshcooper/Desktop/vs code projects/c++ projects/users/" + reg.username + ".txt");
+        file << reg.username << endl<< reg.password << endl << reg.fName + " " + reg.lName;
+        file.close();
+        cout << endl;
         cout << "REGISTRATION COMPLETE!" << endl;
-        cout << "Name: " << reg.firstName << " " << reg.lastName << endl;
+        cout << "Name: " << reg.fName + " " + reg.lName << endl;
         cout << "Username: " << reg.username << endl;
-        cout << "Email: " << reg.email << endl;
-        cout << "Password: " << reg.initPassword << endl;
         cout << "_________________________________" << endl;
     }
     else
@@ -87,17 +91,22 @@ void reg()
 
 void login()
 {
-
+    string pwd, un;
     UserInfo log;
     time_t now = time(0);
-    char *dt = ctime(&now); //date and time
-    cout << "Username: "; cin >> log.username;
+    char *dt = ctime(&now); // date and time
+    cout << "Username: ";
+    cin >> log.username;
 
-    cout << "Enter password: "; cin >> log.initPassword;
+    cout << "Enter password: ";
+    cin >> log.password;
+   
+    
+    ifstream read("/Users/joshcooper/Desktop/vs code projects/c++ projects/users/" + log.username + ".txt");
+    getline(read, un);
+    getline(read, pwd);
 
-    cout << "Verify password: "; cin >> log.verifyPassword;
-
-    if (log.initPassword == log.verifyPassword)
+    if (un == log.username && pwd == log.password)
     {
         cout << "Welcome, " << log.username << "!" << endl;
         cout << "Do you want to Logout? (Y/N): ";
@@ -113,30 +122,27 @@ void login()
         }
     }
     else
-        {
-            cout << "error! Passwords do not match!" << endl;
-        }
+    {
+        cout << "error! Login not successful!" << endl;
+    }
 }
 
-/*TODO: add the user database so that the accounts are actually created
-and able to login after.
-*/
-
-    int main()
+int main()
+{
+    char userR;
+    cout << "Login ('L') or Register ('R'): ";
+    cin >> userR;
+    if (userR == 'R')
     {
-        char userR;
-        cout << "Login ('L') or Register ('R'): "; cin >> userR;
-        if (userR == 'R')
-        {
-            reg();
-            login();
-        }
-        else if (userR == 'L')
-        {
-            login();
-        }
-        else
-        {
-            cout << "Please enter valid character!" << endl;
-        }
+        reg();
+        login();
     }
+    else if (userR == 'L')
+    {
+        login();
+    }
+    else
+    {
+        cout << "Please enter valid option!" << endl;
+    }
+}
