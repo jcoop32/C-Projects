@@ -54,7 +54,7 @@ public:
 
 void reg()
 {
-
+    ofstream file;
     UserInfo reg;
     cout << "Enter First Name: ";
     cin >> reg.fName;
@@ -65,6 +65,9 @@ void reg()
     cout << "Enter username: ";
     cin >> reg.username;
 
+    /*TODO: add username validation system so user cannot have a username
+        that is already taken.
+    */
     cout << "Enter Password: ";
     cin >> reg.password;
 
@@ -73,7 +76,6 @@ void reg()
 
     if (reg.password == reg.vPassword)
     {
-        ofstream file;
         file.open("/Users/joshcooper/Desktop/vs code projects/c++ projects/users/" + reg.username + ".txt");
         file << reg.username << endl<< reg.password << endl << reg.fName + " " + reg.lName;
         file.close();
@@ -91,7 +93,7 @@ void reg()
 
 void login()
 {
-    string pwd, un;
+    string pwd, un, name;
     UserInfo log;
     time_t now = time(0);
     char *dt = ctime(&now); // date and time
@@ -105,10 +107,11 @@ void login()
     ifstream read("/Users/joshcooper/Desktop/vs code projects/c++ projects/users/" + log.username + ".txt");
     getline(read, un);
     getline(read, pwd);
+    getline(read, name);
 
     if (un == log.username && pwd == log.password)
     {
-        cout << "Welcome, " << log.username << "!" << endl;
+        cout << "Welcome, " << name << "!" << endl;
         cout << "Do you want to Logout? (Y/N): ";
         char userLOQ;
         cin >> userLOQ;
@@ -130,14 +133,14 @@ void login()
 int main()
 {
     char userR;
-    cout << "Login ('L') or Register ('R'): ";
+    cout << "Login ('1') or Register ('2'): ";
     cin >> userR;
-    if (userR == 'R')
+    if (userR == '2')
     {
         reg();
         login();
     }
-    else if (userR == 'L')
+    else if (userR == '1')
     {
         login();
     }
