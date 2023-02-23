@@ -2,10 +2,8 @@
 #include <fstream>
 #include <string>
 #include <ctime>
-#include <cstdlib>
 #include "artcollection.cpp"
 using namespace std;
-
 
 class UserInfo
 {
@@ -26,9 +24,18 @@ void reg()
     cout << "Enter username: ";
     cin >> reg.username;
 
-    /*TODO: add username validation system so user cannot have a username
-        that is already taken.
-    */
+    /* void valid(){
+     file.open("user/" + reg.username + ".txt");
+
+     if (file)
+     {
+         cout << "user exists" << endl;
+     }
+
+     }*/
+
+    // valid();
+
     cout << "Enter Password: ";
     cin >> reg.password;
 
@@ -38,7 +45,9 @@ void reg()
     if (reg.password == reg.vPassword)
     {
         file.open("users/" + reg.username + ".txt");
-        file << reg.username << endl<< reg.password << endl << reg.fName + " " + reg.lName;
+        file << reg.username << endl
+             << reg.password << endl
+             << reg.fName + " " + reg.lName;
         file.close();
         cout << endl;
         cout << "REGISTRATION COMPLETE!" << endl;
@@ -53,7 +62,8 @@ void reg()
 }
 
 void login()
-{
+{          
+    int count = 0;
     string pwd, un, name;
     UserInfo log;
     time_t now = time(0);
@@ -63,7 +73,7 @@ void login()
 
     cout << "Enter password: ";
     cin >> log.password;
-    
+
     ifstream read("users/" + log.username + ".txt");
     getline(read, un);
     getline(read, pwd);
@@ -72,30 +82,35 @@ void login()
     if (un == log.username && pwd == log.password)
     {
         cout << "Welcome, " << name << "!" << endl;
-        cout << "Do you want to Logout? (Y/N): ";
+        cout << "Do you want to Logout? (y/n): ";
         char userLOQ;
         cin >> userLOQ;
-        if (userLOQ == 'Y')
+        if (userLOQ == 'y')
         {
             cout << "Log Out Success! " << dt << endl;
         }
         else
         {
             string artChoice;
-            cout << "Art choice 1 or 2: "; cin >> artChoice;
-            if (artChoice == "1"){
+            cout << "Art choice 1 or 2: ";
+            cin >> artChoice;
+            if (artChoice == "1")
+            {
                 pokemon();
             }
             else if (artChoice == "2")
             {
                 robot();
             }
-            
+            else
+            {
+                cout << "enter valid number";
+            }
         }
     }
     else
     {
-        cout << "error! Login not successful!" << endl;
+        cout << "error! Login not successful! Try again." << endl;    
     }
 }
 
